@@ -1,0 +1,634 @@
+ 						ASSIGNMENT- 3
+
+
+
+
+
+
+
+3\. WHERE Clause Questions
+
+
+
+
+
+• Retrieve details of employees who are in the IT department and earn more than
+
+60,000
+
+
+
+ANS-
+
+ WHERE department = 'IT' AND salary > 60000;
+
+
+
+• Find all employees who are older than 30 years and work in Bangalore or
+
+Hyderabad.
+
+
+
+ ANS-
+
+ SELECT \* FROM employees
+
+WHERE age > 30 AND city IN ('Bangalore', 'Hyderabad');
+
+
+
+
+
+• Get the details of employees who joined before 2019 but have less than 5 years of
+
+experience.
+
+
+
+ANS-
+
+SELECT \* FROM employees
+
+WHERE join\_date < '2019-01-01' AND experience < 5;
+
+
+
+
+
+• Retrieve employees from the Finance department whose salary is between 55,000
+
+and 70,000.
+
+
+
+ANS- WHERE department = 'Finance'
+
+AND salary BETWEEN 55000 AND 70000;
+
+
+
+
+
+• Find all employees except those from the HR department who have more than 8
+
+years of experience.
+
+
+
+ANS-
+
+SELECT \* FROM employees
+
+WHERE department <> 'HR' AND experience > 8;
+
+
+
+• Retrieve all employees from the Sales department.
+
+
+
+ANS
+
+
+
+SELECT \* FROM employees
+
+WHERE department = 'Sales';
+
+
+
+
+
+• Find employees who live in Mumbai and are older than 30 years.
+
+
+
+ANS
+
+
+
+SELECT \* FROM employees
+
+WHERE city = 'Mumbai' AND age > 30;
+
+
+
+• Get details of employees who earn more than 60,000.
+
+
+
+ANS
+
+
+
+SELECT \* FROM employees
+
+WHERE salary > 60000;
+
+
+
+• Retrieve employees who joined after 2020-01-01.
+
+
+
+ANS-
+
+
+
+SELECT \* FROM employees
+
+WHERE join\_date > '2020-01-01';
+
+
+
+• Find employees who have less than 5 years of experience.
+
+
+
+ANS
+
+
+
+SELECT \* FROM employees
+
+WHERE experience < 5;
+
+
+
+• Get all employees except those in the HR department.
+
+
+
+ANS
+
+
+
+SELECT \* FROM employees
+
+WHERE department <> 'HR';
+
+
+
+
+
+• Find employees with 'Kumar' in their name.
+
+
+
+ANS-
+
+SELECT \* FROM employees
+
+WHERE emp\_name LIKE '%Kumar%';
+
+
+
+
+
+
+
+***4. GROUP BY \& Aggregation Questions***
+
+
+
+• Count the number of employees in each department.
+
+
+
+ANS
+
+SELECT department, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY department;
+
+
+
+• Find the average salary of employees in each city.
+
+
+
+ANS
+
+SELECT city, AVG(salary) AS avg\_salary
+
+FROM employees
+
+GROUP BY city;
+
+
+
+• Identify the total number of employees who joined in each year.
+
+
+
+ANS-
+
+SELECT YEAR(join\_date) AS join\_year, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY YEAR(join\_date);
+
+
+
+
+
+• List the minimum and maximum salaries for each department.
+
+
+
+ANS-
+
+SELECT department,
+
+       MIN(salary) AS min\_salary,
+
+       MAX(salary) AS max\_salary
+
+FROM employees
+
+GROUP BY department;
+
+
+
+
+
+• Find the total salary expenditure for each department.
+
+
+
+ANS-
+
+SELECT department, SUM(salary) AS total\_salary
+
+FROM employees
+
+GROUP BY department;
+
+
+
+• Count how many employees live in each city.
+
+
+
+
+
+ANS-
+
+SELECT city, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY city;
+
+
+
+• Retrieve cities where there are more than 10 employees.
+
+
+
+ANS-
+
+
+
+SELECT city, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY city
+
+HAVING COUNT(\*) > 10;
+
+
+
+
+
+
+
+• Find the total salary paid to employees in each department.
+
+
+
+ANS-
+
+SELECT department, SUM(salary) AS total\_salary
+
+FROM employees
+
+GROUP BY department;
+
+
+
+
+
+
+
+• List the youngest and oldest employees in each department.
+
+
+
+ANS-
+
+SELECT department,
+
+       MIN(age) AS youngest\_employee,
+
+       MAX(age) AS oldest\_employee
+
+FROM employees
+
+GROUP BY department;
+
+
+
+
+
+• Find departments where the average experience is more than 7 years.
+
+
+
+ANS -
+
+
+
+SELECT department, AVG(experience) AS avg\_experience
+
+FROM employees
+
+GROUP BY department
+
+HAVING AVG(experience) > 7;
+
+
+
+• Get the most common department in the company.
+
+
+
+ANS
+
+
+
+SELECT department, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY department
+
+ORDER BY total\_employees DESC
+
+LIMIT 1;
+
+
+
+• Retrieve the department with the highest total salary expenditure.
+
+
+
+ANS
+
+SELECT department, SUM(salary) AS total\_salary
+
+FROM employees
+
+GROUP BY department
+
+ORDER BY total\_salary DESC
+
+LIMIT 1;
+
+
+
+
+
+
+
+***5. HAVING \& ORDER BY Questions***
+
+
+
+
+
+• Retrieve departments where the average salary is more than 60,000.
+
+
+
+ANS
+
+
+
+SELECT department, AVG(salary) AS avg\_salary
+
+FROM employees
+
+GROUP BY department
+
+HAVING AVG(salary) > 60000;
+
+
+
+• Find cities where the total number of employees is greater than 10, sorted in
+
+descending order.
+
+
+
+ANS
+
+SELECT city, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY city
+
+HAVING COUNT(\*) > 10
+
+ORDER BY total\_employees DESC;
+
+
+
+• Identify departments with more than 5 employees and order them by total
+
+experience in descending order.
+
+
+
+ANS
+
+SELECT department,
+
+       COUNT(\*) AS total\_employees,
+
+       SUM(experience) AS total\_experience
+
+FROM employees
+
+GROUP BY department
+
+HAVING COUNT(\*) > 5
+
+ORDER BY total\_experience DESC;
+
+
+
+
+
+• Get the top 5 highest-paid employees.
+
+
+
+ANS
+
+SELECT \* FROM employees
+
+ORDER BY salary DESC
+
+LIMIT 5;
+
+
+
+
+
+• Find employees who have been working for more than 10 years, sorted by joining
+
+date.
+
+
+
+ANS
+
+
+
+SELECT \* FROM employees
+
+WHERE experience > 10
+
+ORDER BY join\_date;
+
+
+
+
+
+• Get all employees sorted by Salary in descending order.
+
+
+
+ANS
+
+SELECT \* FROM employees
+
+ORDER BY salary DESC;
+
+
+
+• Count the number of employees who joined each year.
+
+
+
+ANS
+
+SELECT YEAR(join\_date) AS join\_year, COUNT(\*) AS total\_employees
+
+FROM employees
+
+GROUP BY YEAR(join\_date);
+
+
+
+***6. Advanced SQL Questions***
+
+
+
+
+
+• Find employees who earn more than the average salary of their department.
+
+
+
+ANS
+
+SELECT \*
+
+FROM employees e
+
+WHERE salary >
+
+      (SELECT AVG(salary)
+
+       FROM employees
+
+       WHERE department = e.department);
+
+
+
+• Get the second highest salary in the company.
+
+
+
+ANS
+
+SELECT MAX(salary) AS second\_highest\_salary
+
+FROM employees
+
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+
+
+• Find employees who joined in the last 3 years using DATEDIFF.
+
+
+
+ANS
+
+SELECT \*
+
+FROM employees
+
+WHERE DATEDIFF(CURDATE(), join\_date) <= 3 \* 365;
+
+
+
+• Get the employee with the highest salary in each department.
+
+
+
+ANS
+
+
+
+SELECT \*
+
+FROM employees e
+
+WHERE salary =
+
+      (SELECT MAX(salary)
+
+       FROM employees
+
+       WHERE department = e.department);
+
+
+
+• Find employees whose experience is above the department’s average experience.
+
+
+
+ANS
+
+SELECT \*
+
+FROM employees e
+
+WHERE experience >
+
+      (SELECT AVG(experience)
+
+       FROM employees
+
+       WHERE department = e.department);
+
