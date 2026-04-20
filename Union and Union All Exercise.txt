@@ -1,0 +1,82 @@
+Assignment Questions - 6
+Part 1: Understanding UNION and UNION ALL
+
+1. Retrieve all companies from all three years without duplicates.
+
+ANS- SELECT CompanyName FROM Revenue2021
+UNION
+SELECT CompanyName FROM Revenue2022
+UNION
+SELECT CompanyName FROM Revenue2023;
+
+
+2. Retrieve all companies from all three years, including duplicates.
+
+ANS- SELECT CompanyName FROM Revenue2021
+UNION ALL
+SELECT CompanyName FROM Revenue2022
+UNION ALL
+SELECT CompanyName FROM Revenue2023;
+
+
+3. Get a combined list of company names and their revenue from all years, without
+duplicates.
+
+ANS- SELECT CompanyName, Revenue FROM Revenue2021
+UNION
+SELECT CompanyName, Revenue FROM Revenue2022
+UNION
+SELECT CompanyName, Revenue FROM Revenue2023;
+
+
+4. Get a combined list of company names and their revenue from all years, allowing
+duplicates.
+
+ANS- SELECT CompanyName, Revenue FROM Revenue2021
+UNION ALL
+SELECT CompanyName, Revenue FROM Revenue2022
+UNION ALL
+SELECT CompanyName, Revenue FROM Revenue2023;
+
+
+5. Find all unique companies that reported revenue in at least one year.
+
+ANS- SELECT DISTINCT CompanyName
+FROM (
+    SELECT CompanyName FROM Revenue2021
+    UNION ALL
+    SELECT CompanyName FROM Revenue2022
+    UNION ALL
+    SELECT CompanyName FROM Revenue2023
+) AS AllCompanies;
+
+
+ 
+6. Find the total number of companies across all years, considering duplicates.
+
+ANS- SELECT COUNT(*) AS TotalCompanies
+FROM (
+    SELECT CompanyName FROM Revenue2021
+    UNION ALL
+    SELECT CompanyName FROM Revenue2022
+    UNION ALL
+    SELECT CompanyName FROM Revenue2023
+) AS AllCompanies;
+
+ 
+7. Retrieve companies that reported revenue in both 2021 and 2022.
+
+Ans 7.
+
+SELECT CompanyName FROM Revenue2021
+INTERSECT
+SELECT CompanyName FROM Revenue2022;
+
+
+8. Retrieve companies that appeared in 2021 but did not report revenue in 2022.
+
+Ans 8.
+
+SELECT CompanyName FROM Revenue2021
+EXCEPT
+SELECT CompanyName FROM Revenue2022;
